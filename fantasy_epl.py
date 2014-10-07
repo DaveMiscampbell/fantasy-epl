@@ -3,7 +3,7 @@ __author__ = 'Robbie'
 __author__ = 'Robbie Lynch'
 
 from bs4 import BeautifulSoup
-import urllib2
+import urllib.request
 
 
 def get_soup_object():
@@ -14,7 +14,7 @@ def get_soup_object():
 
     ppi_url = "http://www.premierleague.com/en-gb/players/ea-sports-player-performance-index.html?paramSearchTerm=&paramClubId=&paramSeason=2014-2015&paramPosition=&paramEaBreakdownType=ACCUMULATIVE&paramGameWeek=1&paramItemsPerPage=500&paramSelectedPageIndex=1"
 
-    usock = urllib2.urlopen(ppi_url)
+    usock = urllib.request.urlopen(ppi_url)
     html = usock.read()
     usock.close()
 

@@ -1,7 +1,7 @@
 __author__ = 'Robbie'
 
 from bs4 import BeautifulSoup
-import urllib2
+import urllib.request
 
 
 def normalise_team_name(team_name):
@@ -41,8 +41,8 @@ def get_fixtures(week_num):
     it means they are playing one another that week.
     """
     # Get HTML #
-    fix_url = "http://fantasy.premierleague.com/fixtures/" + str(week_num)
-    usock = urllib2.urlopen(fix_url)
+    fix_url = "http://fantasy.premierleague.com/fixtures/"
+    usock = urllib.request.urlopen(fix_url)
     html = usock.read()
     usock.close()
 
@@ -59,8 +59,8 @@ def get_fixtures(week_num):
     for row in rows_result_set:
         cells = row.find_all("td")
 
-        h = cells[1].get_text().encode('ascii','ignore').strip()
-        a = cells[5].get_text().encode('ascii','ignore').strip()
+        h = str(cells[1].get_text().encode('ascii','ignore')).strip().replace("b'","").replace("'","")
+        a = str(cells[5].get_text().encode('ascii','ignore')).strip().replace("b'","").replace("'","")
 
         # Normalise the team name to match up with other sources #
         h = normalise_team_name(h)

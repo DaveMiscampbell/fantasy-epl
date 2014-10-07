@@ -1,6 +1,6 @@
 __author__ = 'Robbie'
 import fantasy_epl
-import urllib2
+import urllib.request
 
 
 def get_clubs_objects():
@@ -10,7 +10,7 @@ def get_clubs_objects():
     :return: List of club objects
     """
     club_ranking_table_url = "http://www.premierleague.com/en-gb/players/ea-sports-ppi-club-ranking.html"
-    club_table_html = urllib2.urlopen(club_ranking_table_url)
+    club_table_html = urllib.request.urlopen(club_ranking_table_url)
     soup = fantasy_epl.extract_soup(club_table_html.read())
     tr_result_set = soup.find('table', {'class':"players-table"}).find_all("tr")
 
@@ -22,9 +22,9 @@ def get_clubs_objects():
         cells = row.find_all("td")
         if(cells):
             #rank
-            rank = cells[0].get_text().encode('ascii','ignore').strip(' \n\r\t')
+            rank = str(cells[0].get_text().encode('ascii','ignore')).strip(' \n\r\t').replace("b'","").replace("'","")
             #club name
-            name = cells[1].get_text().encode('ascii','ignore').strip()
+            name = str(cells[1].get_text().encode('ascii','ignore')).strip().replace("b'","").replace("'","")
 
             #Create club
             c = Club(int(rank), name)

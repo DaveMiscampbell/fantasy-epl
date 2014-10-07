@@ -60,7 +60,7 @@ def get_players_list():
         player_name = cells[3].get_text().encode('ascii','ignore')
         player_names.append(player_name)
         #p club
-        club = cells[4].get_text().encode('ascii','ignore')
+        club = str(cells[4].get_text().encode('ascii','ignore')).replace("b'","").replace("'","")
         club = normalise_player_clubs(club)
         player_club.append(club)
         #p position
@@ -73,7 +73,7 @@ def get_players_list():
         away_avg = cells[12].get_text().encode('ascii','ignore')
         player_away_avg.append(int(away_avg))
         #total ppi
-        ppi = cells[13].get_text().encode('ascii','ignore').strip(' \t\n\r')
+        ppi = str(cells[13].get_text().encode('ascii','ignore')).strip(' \t\n\r').replace("b'","").replace("'","").replace("\\r\\n","").replace(" ","")
         player_ppi.append(int(ppi))
 
 

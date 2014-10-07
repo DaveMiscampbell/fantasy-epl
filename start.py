@@ -1,3 +1,6 @@
+import argparse
+import sys
+
 import fixtures
 from club import Club, get_clubs_objects, get_club_rank
 import player
@@ -87,6 +90,20 @@ def start(week_num):
 
     for i, p in enumerate(player_list):
         try:
-            print("| " + str(i + 1) + " | " + p.name + " | " + p.club + " | " + p.position + " |" + str(p.prediction) + " |")
-        except Exception, e:
+            print("| " + str(i + 1) + " | " + str(p.name) + " | " + str(p.club) + " | " + str(p.position) + " |" + str(p.prediction) + " |")
+        except Exception as e:
+            print(e)
             pass
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Fantasy EPL player algorithm')
+    parser.add_argument("week_num", help="game week #", type=int)
+    parser.add_argument('-a', '--all', action="store_true", default=False)
+    parser.add_argument('-f', '--forwards', action="store_true", default=False)
+    parser.add_argument('-m', '--midfielders', action="store_true", default=False)
+    parser.add_argument('-d', '--defenders', action="store_true", default=False)
+    parser.add_argument('-g', '--goalkeepers', action="store_true", default=False)
+
+    args = parser.parse_args()
+
+    start(args)
